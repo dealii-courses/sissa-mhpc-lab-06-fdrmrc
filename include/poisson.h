@@ -84,6 +84,12 @@ protected:
   void
   solve();
   void
+  estimate();
+  void
+  compute_error();
+  void
+  mark();
+  void
   output_results(const unsigned cycle) const;
 
   Triangulation<dim>         triangulation;
@@ -94,6 +100,13 @@ protected:
   SparseMatrix<double>       system_matrix;
   Vector<double>             solution;
   Vector<double>             system_rhs;
+
+  Vector<float>             error_per_cell;
+  std::string               estimator_type                    = "exact";
+  std::string               marking_strategy                  = "global";
+  std::pair<double, double> coarsening_and_refinement_factors = {0.03, 0.3};
+
+
 
   FunctionParser<dim> forcing_term;
   FunctionParser<dim> coefficient;
