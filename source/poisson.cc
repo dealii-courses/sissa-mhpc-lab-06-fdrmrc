@@ -31,6 +31,7 @@ Poisson<dim>::Poisson()
   : dof_handler(triangulation)
 {
   add_parameter("Finite element degree", fe_degree);
+  add_parameter("Mapping degree", mapping_degree);
   add_parameter("Number of global refinements", n_refinements);
   add_parameter("Output filename", output_filename);
   add_parameter("Forcing term expression", forcing_term_expression);
@@ -175,15 +176,17 @@ template <int dim>
 void
 Poisson<dim>::assemble_system()
 {
-  QGauss<dim>     quadrature_formula(fe->degree + 1);
-  QGauss<dim - 1> face_quadrature_formula(fe->degree + 1);
-
-  FEValues<dim> fe_values(*fe,
+  QGauss<dim>         quadrature_formula(fe->degree + 1);
+  QGauss<dim - 1>     face_quadrature_formula(fe->degree + 1);
+  const MappingQ<dim> mapping(mapping_degree);
+  FEValues<dim>       fe_values(mapping,
+                          *fe,
                           quadrature_formula,
                           update_values | update_gradients |
                             update_quadrature_points | update_JxW_values);
 
-  FEFaceValues<dim> fe_face_values(*fe,
+  FEFaceValues<dim> fe_face_values(mapping,
+                                   *fe,
                                    face_quadrature_formula,
                                    update_values | update_quadrature_points |
                                      update_JxW_values);

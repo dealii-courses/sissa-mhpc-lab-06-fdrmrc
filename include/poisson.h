@@ -100,6 +100,7 @@ protected:
   SparseMatrix<double>       system_matrix;
   Vector<double>             solution;
   Vector<double>             system_rhs;
+  
 
   Vector<float>             error_per_cell;
   std::string               estimator_type                    = "exact";
@@ -117,6 +118,7 @@ protected:
 
 
   unsigned int fe_degree           = 1;
+  unsigned int mapping_degree = 1;
   unsigned int n_refinements       = 4;
   unsigned int n_refinement_cycles = 1;
   std::string  output_filename     = "poisson";
