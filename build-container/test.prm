@@ -1,0 +1,58 @@
+# Listing of Parameters
+# ---------------------
+subsection Error table
+  # When set to false, no computations are performed.
+  set Enable computation of the errors = true
+
+  # Set this to a filename with extension .txt, .gpl, .org, or .tex to enable
+  # writing the convergence table to a file.
+  set Error file name                  = 
+
+  # Number of digits to use when printing the error.
+  set Error precision                  = 3
+
+  # The exponent to use when computing p-norms.
+  set Exponent for p-norms             = 2
+
+  # Extra columns to add to the table. Available options are dofs and cells.
+  set Extra columns                    = cells, dofs
+
+  # Each component is separated by a semicolon and each norm by a comma. See
+  # the documentation of VectorTools::NormType for a list of implemented
+  # norms. If you want to skip a component, leave its entry empty.
+  set List of error norms to compute   = L2_norm, Linfty_norm, H1_norm
+
+  # Key to use when computing convergence rates. If this is set to a column
+  # that is not present, or to the empty string, then no error rates are
+  # computed.
+  set Rate key                         = 
+
+  # What type of error rate to compute. Available options are
+  # reduction_rate_log2, reduction_rate, and none.
+  set Rate mode                        = reduction_rate_log2
+end
+
+
+subsection Poisson<2>
+  set Coarsening and refinement factors         = 0.03 : 0.3
+  set Coefficient expression                    = 1
+  set Dirichlet boundary condition expression   = -x^2- y^2 +1
+  set Dirichlet boundary ids                    = 0
+  set Estimator type                            = kelly
+  set Exact solution expression                 = -x^2- y^2 +1
+  set Finite element degree                     = 1
+  set Forcing term expression                   = 4
+  set Grid generator arguments                  = 0.0,0.0: 1.0: false
+  set Grid generator function                   = hyper_ball
+  set Local pre-refinement grid size expression = 0
+  set Mapping degree                            = 2
+  set Marking strategy                          = fixed_number
+  set Neumann boundary condition expression     = 0
+  set Neumann boundary ids                      = 
+  set Number of global refinements              = 3
+  set Number of refinement cycles               = 6
+  set Output filename                           = poisson
+  set Problem constants                         = 
+end
+
+

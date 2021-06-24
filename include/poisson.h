@@ -84,6 +84,12 @@ protected:
   void
   solve();
   void
+  estimate(); // it'll fill error_per_cell with the correct error indicators
+  void
+  compute_error();
+  void
+  mark();
+  void
   output_results(const unsigned cycle) const;
 
   Triangulation<dim>         triangulation;
@@ -95,6 +101,15 @@ protected:
   Vector<double>             solution;
   Vector<double>             system_rhs;
 
+
+  Vector<float> error_per_cell; // we don't need a super accurate error
+                                // estimator
+  std::string               estimator_type                    = "exact";
+  std::string               marking_strategy                  = "global";
+  std::pair<double, double> coarsening_and_refinement_factors = {0.03, 0.3};
+
+
+
   FunctionParser<dim> forcing_term;
   FunctionParser<dim> coefficient;
   FunctionParser<dim> exact_solution;
@@ -104,6 +119,7 @@ protected:
 
 
   unsigned int fe_degree           = 1;
+  unsigned int mapping_degree      = 1;
   unsigned int n_refinements       = 4;
   unsigned int n_refinement_cycles = 1;
   std::string  output_filename     = "poisson";
@@ -123,6 +139,9 @@ protected:
   std::string grid_generator_arguments = "0: 1: false";
 
   ParsedConvergenceTable error_table;
+
+
+  bool use_direct_solver = true;
 
   template <typename Integral>
   friend class PoissonTester;
